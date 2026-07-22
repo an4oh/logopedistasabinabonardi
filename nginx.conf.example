@@ -1,0 +1,50 @@
+# Configurazione Nginx di esempio (redirect HTTP → HTTPS + HTTPS con Let's Encrypt)
+# Sostituire NOME_SITO e example.com con i valori reali prima dell'uso.
+
+# Redirect HTTP → HTTPS
+server {
+    listen 80;
+    server_name example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    # Certificati gestiti da Certbot (vengono aggiunti automaticamente)
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    root  /var/www/NOME_SITO;
+    index index.html;
+
+    # Gzip
+    gzip on;
+    gzip_types text/css application/javascript;
+    gzip_min_length 1024;
+
+    # Cache immagini (cambiano raramente)
+    location ~* \.(png|jpg|jpeg|webp|avif|svg|ico|woff2?)$ {
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+
+    # CSS e JS: nessun cache (facile da aggiornare)
+    location ~* \.(css|js)$ {
+        expires -1;
+        add_header Cache-Control "no-cache, must-revalidate";
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Security headers
+    add_header X-Content-Type-Options    nosniff;
+    add_header X-Frame-Options           SAMEORIGIN;
+    add_header Referrer-Policy           no-referrer-when-downgrade;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+}
