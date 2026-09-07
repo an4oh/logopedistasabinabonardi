@@ -382,6 +382,9 @@ blockquote {
 }
 .sede strong { font-size: .9rem; color: var(--dark); }
 .sede span   { font-size: .8rem; color: var(--muted); }
+a.sede { text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .2s; }
+a.sede:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-2px); }
+.sede-maps { font-size: .75rem; font-weight: 700; color: var(--blue); margin-top: .25rem; }
 
 .studio-foto { display: grid; grid-template-columns: 3fr 2fr; gap: .75rem; align-items: end; }
 .studio-foto picture { display: block; width: 100%; }
