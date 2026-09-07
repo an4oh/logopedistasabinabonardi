@@ -180,6 +180,7 @@ img { display: block; max-width: 100%; }
 .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
 .hero-photo { overflow: hidden; }
+.hero-photo picture { display: block; width: 100%; height: 100%; }
 .hero-photo img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: top center;
@@ -275,15 +276,19 @@ img { display: block; max-width: 100%; }
 .galleria-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  height: 280px;
 }
 
-.galleria-strip .galleria-item { overflow: hidden; }
+.galleria-strip .galleria-item { overflow: hidden; aspect-ratio: 3/4; }
+.galleria-strip .galleria-item picture { display: block; width: 100%; height: 100%; }
 .galleria-strip .galleria-item img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: top center;
   transition: transform .5s;
 }
+.galleria-strip .galleria-item:nth-child(1) img { object-position: 44% 39%; }
+.galleria-strip .galleria-item:nth-child(2) img { object-position: 52% 36%; }
+.galleria-strip .galleria-item:nth-child(3) img { object-position: 53% 16%; }
+.galleria-strip .galleria-item:nth-child(4) img { object-position: 38% 54%; }
 .galleria-strip .galleria-item:hover img { transform: scale(1.06); }
 
 /* =============================================
@@ -317,22 +322,17 @@ img { display: block; max-width: 100%; }
 .esperienza li div { font-size: .875rem; color: var(--dark-mid); }
 .esperienza strong { display: block; color: var(--dark); margin-bottom: .1rem; }
 
-.domicilio-note {
-  margin-top: 1rem; padding: .9rem 1.1rem;
-  background: var(--blue-light);
-  border-left: 3px solid var(--blue);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-size: .85rem; color: var(--dark-mid);
-}
-
 .chisono-foto {
   position: sticky; top: calc(var(--nav-h) + 1.5rem);
   display: flex; flex-direction: column; gap: 1rem;
 }
 .foto-wrap { border-radius: var(--radius-lg); overflow: hidden; }
-.foto-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.foto-top  { aspect-ratio: 4/3; }
-.foto-bottom { aspect-ratio: 4/3; }
+.foto-wrap picture { display: block; width: 100%; height: 100%; }
+.foto-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.foto-top  { aspect-ratio: 4/5; }
+.foto-top img { object-position: 52% 36%; }
+.foto-bottom { aspect-ratio: 4/5; }
+.foto-bottom img { object-position: 38% 54%; }
 
 /* =============================================
    METODO
@@ -384,8 +384,9 @@ blockquote {
 .sede span   { font-size: .8rem; color: var(--muted); }
 
 .studio-foto { display: grid; grid-template-columns: 3fr 2fr; gap: .75rem; align-items: end; }
-.studio-img-main    { width: 100%; border-radius: var(--radius-lg); aspect-ratio: 3/4; object-fit: cover; box-shadow: var(--shadow-lg); }
-.studio-img-secondary { width: 100%; border-radius: var(--radius-lg); aspect-ratio: 2/3; object-fit: cover; box-shadow: var(--shadow); }
+.studio-foto picture { display: block; width: 100%; }
+.studio-img-main    { width: 100%; height: auto; border-radius: var(--radius-lg); aspect-ratio: 3/4; object-fit: cover; box-shadow: var(--shadow-lg); }
+.studio-img-secondary { width: 100%; height: auto; border-radius: var(--radius-lg); aspect-ratio: 1/1; object-fit: cover; object-position: center; box-shadow: var(--shadow); }
 
 /* =============================================
    CONTATTI
@@ -493,7 +494,8 @@ textarea { resize: vertical; min-height: 130px; }
   .hero-text  { padding: 2.5rem 1.5rem 3rem; }
   .hero h1    { font-size: 2.5rem; }
 
-  .galleria-strip { grid-template-columns: 1fr 1fr; height: 180px; }
+  .galleria-strip { grid-template-columns: 1fr 1fr; }
+  .galleria-strip .galleria-item { aspect-ratio: 4/3; }
   .galleria-strip .galleria-item:nth-child(3),
   .galleria-strip .galleria-item:nth-child(4) { display: none; }
 
